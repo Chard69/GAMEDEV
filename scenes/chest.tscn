@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://do4lj5rrkmyfl"]
+
+[ext_resource type="Texture2D" uid="uid://densutgs681i" path="res://animate/chest-open.png" id="1_oii8l"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2ho2r"]
+atlas = ExtResource("1_oii8l")
+region = Rect2(0, 0, 52, 51)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xb8qv"]
+atlas = ExtResource("1_oii8l")
+region = Rect2(52, 0, 52, 51)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sy5e1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2ho2r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xb8qv")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gqd3d"]
+size = Vector2(32, 23.625)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="C1" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(1081, 717)
+sprite_frames = SubResource("SpriteFrames_sy5e1")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1088, 723.8125)
+shape = SubResource("RectangleShape2D_gqd3d")

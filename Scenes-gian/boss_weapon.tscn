@@ -1,0 +1,224 @@
+[gd_scene load_steps=18 format=3 uid="uid://ch2ns2ycmp6wp"]
+
+[ext_resource type="Texture2D" uid="uid://vsgxhg66t4jb" path="res://Assets/weapon_sidewing.png" id="1_3gks0"]
+[ext_resource type="Script" uid="uid://d052mf2uqinvg" path="res://Scenes/boss_weapon.gd" id="1_k2ic2"]
+[ext_resource type="Texture2D" uid="uid://b3es3n8sdnypy" path="res://Assets/weapon_gear.png" id="2_vfune"]
+[ext_resource type="Texture2D" uid="uid://cevvyioqevgnp" path="res://Assets/weapon_wing.png" id="3_dg4vn"]
+[ext_resource type="PackedScene" uid="uid://bh41y2bp2kmbo" path="res://Scenes/weapon_eye.tscn" id="4_vfune"]
+[ext_resource type="Texture2D" uid="uid://cb0jrxel4klfc" path="res://Assets/weapon_muzzle_flash.png" id="5_dg4vn"]
+[ext_resource type="PackedScene" uid="uid://cuyd1qv0pn26e" path="res://addons/midi/MidiPlayer.tscn" id="7_cvn6x"]
+
+[sub_resource type="Animation" id="Animation_dg4vn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WeaponMuzzleFlash:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WeaponWing:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(103.333, 2)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("WeaponSidewing:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(299.333, 64)]
+}
+
+[sub_resource type="Animation" id="Animation_7emxf"]
+resource_name = "fire"
+length = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WeaponMuzzleFlash:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.144649),
+"transitions": PackedFloat32Array(0.183011, 0.993343),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WeaponSidewing:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0001, 0.0592532, 0.147659),
+"transitions": PackedFloat32Array(1, 0.353553, 0.329877, 1),
+"update": 0,
+"values": [Vector2(299.333, 64), Vector2(299.333, 64), Vector2(-106, 64), Vector2(299.333, 64)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("WeaponWing:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.0598659, 0.148941),
+"transitions": PackedFloat32Array(0.392292, 0.378929, 1),
+"update": 0,
+"values": [Vector2(103.333, 2), Vector2(-348, 2), Vector2(103.333, 2)]
+}
+
+[sub_resource type="Animation" id="Animation_nkktk"]
+resource_name = "idle"
+length = 0.8
+loop_mode = 2
+
+[sub_resource type="Animation" id="Animation_k2ic2"]
+resource_name = "recoil"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WeaponWing:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.3),
+"transitions": PackedFloat32Array(0.0853776, 0.233258, 1),
+"update": 0,
+"values": [Vector2(103.333, 2), Vector2(-398, 2), Vector2(103.333, 2)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WeaponSidewing:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.3),
+"transitions": PackedFloat32Array(0.0824693, 0.233, 1),
+"update": 0,
+"values": [Vector2(299.333, 64), Vector2(-200, 64), Vector2(299.333, 64)]
+}
+
+[sub_resource type="Animation" id="Animation_vfune"]
+resource_name = "rotate"
+loop_mode = 1
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7emxf"]
+_data = {
+&"RESET": SubResource("Animation_dg4vn"),
+&"fire": SubResource("Animation_7emxf"),
+&"idle": SubResource("Animation_nkktk"),
+&"recoil": SubResource("Animation_k2ic2"),
+&"rotate": SubResource("Animation_vfune")
+}
+
+[sub_resource type="Animation" id="Animation_hmlu3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WeaponGear:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.46689]
+}
+
+[sub_resource type="Animation" id="Animation_a8ol4"]
+resource_name = "idle"
+length = 0.9
+loop_mode = 2
+
+[sub_resource type="Animation" id="Animation_cvn6x"]
+resource_name = "rotate"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WeaponGear:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nkktk"]
+_data = {
+&"RESET": SubResource("Animation_hmlu3"),
+&"idle": SubResource("Animation_a8ol4"),
+&"rotate": SubResource("Animation_cvn6x")
+}
+
+[node name="boss_weapon" type="Node2D"]
+script = ExtResource("1_k2ic2")
+
+[node name="WeaponSidewing" type="Sprite2D" parent="."]
+position = Vector2(299.333, 64)
+scale = Vector2(1.46481, 1.46481)
+texture = ExtResource("1_3gks0")
+
+[node name="WeaponGear" type="Sprite2D" parent="."]
+rotation = 1.46689
+texture = ExtResource("2_vfune")
+offset = Vector2(112.333, 0)
+
+[node name="WeaponWing" type="Sprite2D" parent="."]
+position = Vector2(103.333, 2)
+texture = ExtResource("3_dg4vn")
+
+[node name="weapon_eye" parent="." instance=ExtResource("4_vfune")]
+position = Vector2(7.62939e-06, 9.53674e-07)
+scale = Vector2(0.239151, 0.239151)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+deterministic = true
+callback_mode_method = 1
+libraries = {
+&"": SubResource("AnimationLibrary_7emxf")
+}
+autoplay = "fire"
+
+[node name="WeaponMuzzleFlash" type="Sprite2D" parent="."]
+position = Vector2(1817, 5)
+scale = Vector2(1.80556, 1.80556)
+texture = ExtResource("5_dg4vn")
+
+[node name="MidiPlayer" parent="." instance=ExtResource("7_cvn6x")]
+file = "res://SoundTracks/Viltar Midi.mid"
+playing = true
+
+[node name="rotation" type="AnimationPlayer" parent="."]
+active = false
+libraries = {
+&"": SubResource("AnimationLibrary_nkktk")
+}
+autoplay = "RESET"
+
+[connection signal="midi_event" from="MidiPlayer" to="." method="_on_midi_player_midi_event"]

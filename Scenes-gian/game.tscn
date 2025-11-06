@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://70hnpxcqkw4j"]
+
+[ext_resource type="PackedScene" uid="uid://cxobs0x0nstml" path="res://Scenes/player.tscn" id="1_qxrlw"]
+[ext_resource type="PackedScene" uid="uid://ls6xdbrevfq2" path="res://Scenes/boss_parent.tscn" id="3_3dryh"]
+[ext_resource type="AudioStream" uid="uid://whew86rwhgom" path="res://SoundTracks/Viltar.ogg" id="10_o5yvi"]
+[ext_resource type="PackedScene" uid="uid://broncg0xmb1dl" path="res://bg.tscn" id="13_rfjv2"]
+
+[node name="Game" type="Node2D"]
+
+[node name="player" parent="." groups=["player"] instance=ExtResource("1_qxrlw")]
+position = Vector2(96, 274)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="player"]
+position = Vector2(3, 2)
+stream = ExtResource("10_o5yvi")
+volume_db = -17.333
+autoplay = true
+attenuation = 0.116629
+
+[node name="Camera2D" type="Camera2D" parent="player"]
+position = Vector2(135, 0)
+scale = Vector2(0.876114, 1.94009)
+zoom = Vector2(0.5, 0.5)
+position_smoothing_enabled = true
+position_smoothing_speed = 3.0
+
+[node name="Boss_parent" parent="." instance=ExtResource("3_3dryh")]
+position = Vector2(973, 280)
+
+[node name="BG" parent="." instance=ExtResource("13_rfjv2")]
+show_behind_parent = true
+z_index = -1
+position = Vector2(4, 8)
+scale = Vector2(6.96, 6.96)

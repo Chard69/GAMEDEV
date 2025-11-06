@@ -1,0 +1,55 @@
+[gd_scene load_steps=8 format=3 uid="uid://dtw3kcs0jo7jd"]
+
+[ext_resource type="Texture2D" uid="uid://o5peswxrwlea" path="res://animate/apoygalaw.png" id="1_d4v33"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t3atn"]
+atlas = ExtResource("1_d4v33")
+region = Rect2(0, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_akh1h"]
+atlas = ExtResource("1_d4v33")
+region = Rect2(16, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gkro6"]
+atlas = ExtResource("1_d4v33")
+region = Rect2(32, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4qot0"]
+atlas = ExtResource("1_d4v33")
+region = Rect2(48, 0, 16, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_my26j"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t3atn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_akh1h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gkro6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4qot0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o2tjn"]
+size = Vector2(16, 24)
+
+[node name="torch" type="Node2D"]
+
+[node name="T1" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(487, -33)
+sprite_frames = SubResource("SpriteFrames_my26j")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+texture_filter = 1
+position = Vector2(487, -30)
+shape = SubResource("RectangleShape2D_o2tjn")

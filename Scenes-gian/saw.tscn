@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://c64ji54w7do4a"]
+
+[ext_resource type="Texture2D" uid="uid://ctjq1sj2twdcc" path="res://Assets/huge_saw.png" id="1_jp1mk"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jp1mk"]
+radius = 1323.5
+
+[node name="saw" type="Node2D"]
+
+[node name="HugeSaw" type="Sprite2D" parent="."]
+position = Vector2(3, -5)
+scale = Vector2(2.56, 2.56)
+texture = ExtResource("1_jp1mk")
+offset = Vector2(97.1719, -3.17188)
+
+[node name="Area2D" type="Area2D" parent="HugeSaw"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HugeSaw/Area2D"]
+position = Vector2(-1.17188, 1.95313)
+scale = Vector2(0.390625, 0.390625)
+shape = SubResource("CircleShape2D_jp1mk")

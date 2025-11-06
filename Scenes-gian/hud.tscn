@@ -1,0 +1,131 @@
+[gd_scene load_steps=7 format=3 uid="uid://db46hpxrj74ul"]
+
+[ext_resource type="Texture2D" uid="uid://dx3ise7ipeip5" path="res://Assets/HUD Skills/hud.png" id="1_37p78"]
+[ext_resource type="Texture2D" uid="uid://4igj7cpyr0kr" path="res://Assets/HUD Skills/skillBorder1.png" id="2_8sq4i"]
+[ext_resource type="Texture2D" uid="uid://fk3q7sy41etq" path="res://Assets/HUD Skills/skillBorder2.png" id="3_640wx"]
+
+[sub_resource type="Animation" id="Animation_1xsix"]
+length = 4.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SkillBorder1:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SkillBorder2:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SkillBorder3:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(-0.0333333, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [6.28319, 0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SkillBorder4:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [6.28319, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_a2258"]
+resource_name = "rotate"
+length = 4.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SkillBorder1:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SkillBorder2:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rftc2"]
+_data = {
+&"RESET": SubResource("Animation_1xsix"),
+&"rotate": SubResource("Animation_a2258")
+}
+
+[node name="Hud" type="Sprite2D"]
+z_index = 2
+texture = ExtResource("1_37p78")
+
+[node name="SkillBorder1" type="Sprite2D" parent="."]
+z_index = 1
+position = Vector2(-1192, 540)
+scale = Vector2(0.121, 0.121)
+texture = ExtResource("2_8sq4i")
+
+[node name="SkillBorder2" type="Sprite2D" parent="."]
+z_index = 1
+position = Vector2(-818, 541)
+scale = Vector2(0.121234, 0.121234)
+texture = ExtResource("2_8sq4i")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_rftc2")
+}
+autoplay = "RESET"
+
+[node name="SkillBorder3" type="Sprite2D" parent="."]
+show_behind_parent = true
+position = Vector2(-1192, 540)
+rotation = 6.23126
+scale = Vector2(0.129, 0.129)
+texture = ExtResource("3_640wx")
+
+[node name="SkillBorder4" type="Sprite2D" parent="."]
+show_behind_parent = true
+position = Vector2(-817, 540)
+rotation = 6.28319
+scale = Vector2(0.129, 0.129)
+texture = ExtResource("3_640wx")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.3, 0.3)

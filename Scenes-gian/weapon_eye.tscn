@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bh41y2bp2kmbo"]
+
+[ext_resource type="Texture2D" uid="uid://b1gtfmb5w1x0m" path="res://Assets/weapon_eye.png" id="1_wtcfe"]
+
+[node name="weapon_eye" type="Node2D"]
+
+[node name="WeaponEye" type="Sprite2D" parent="."]
+position = Vector2(87, -10)
+texture = ExtResource("1_wtcfe")

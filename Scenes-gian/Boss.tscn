@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://skejq6hdkqjd"]
+
+[ext_resource type="Texture2D" uid="uid://cwabghbgbgmk0" path="res://Assets/Gear.png" id="1_0154r"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wwfse"]
+radius = 53.1508
+
+[node name="Boss" type="Node2D"]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." groups=["enemies"]]
+
+[node name="Gear" type="Sprite2D" parent="CharacterBody2D" groups=["enemies"]]
+position = Vector2(233, 218)
+texture = ExtResource("1_0154r")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(-3.05176e-05, 4.57764e-05)
+shape = SubResource("CircleShape2D_wwfse")

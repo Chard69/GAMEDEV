@@ -1,0 +1,598 @@
+[gd_scene load_steps=39 format=3 uid="uid://ls6xdbrevfq2"]
+
+[ext_resource type="PackedScene" uid="uid://c64ji54w7do4a" path="res://Scenes/saw.tscn" id="1_ijeur"]
+[ext_resource type="PackedScene" uid="uid://bq8mwrnkds53o" path="res://Scenes/shadow.tscn" id="2_p513w"]
+[ext_resource type="Script" uid="uid://7oysg6nndknl" path="res://Scenes/animation_player.gd" id="3_7co4b"]
+[ext_resource type="PackedScene" uid="uid://skejq6hdkqjd" path="res://Scenes/Boss.tscn" id="4_3rm0t"]
+[ext_resource type="PackedScene" uid="uid://ccj5tiaiwrcmw" path="res://Scenes/boss_laser.tscn" id="5_05ihx"]
+[ext_resource type="PackedScene" uid="uid://bdvkdv77fslji" path="res://addons/midi/ADSR.tscn" id="6_ejeva"]
+[ext_resource type="PackedScene" uid="uid://b6tab07q78b4n" path="res://Scenes/eye.tscn" id="7_kdgu5"]
+[ext_resource type="Script" uid="uid://dno2etjy0o6lq" path="res://Scenes/eye.gd" id="8_vwdh1"]
+[ext_resource type="PackedScene" uid="uid://cuyd1qv0pn26e" path="res://addons/midi/MidiPlayer.tscn" id="9_f6nfb"]
+[ext_resource type="PackedScene" uid="uid://ch2ns2ycmp6wp" path="res://Scenes/boss_weapon.tscn" id="10_fs8qs"]
+
+[sub_resource type="GDScript" id="GDScript_o5yvi"]
+script/source = "extends Node2D
+
+var weapon_attack := 0
+var boss_laser := 0
+var saw_ready := 0
+
+func _ready():	
+	pass
+	
+func _process(delta: float) -> void:
+	pass
+
+func _on_midi_player_midi_event(channel: Variant, event: Variant) -> void:
+	var weapon1 = get_node(\"boss_weapon\")
+	var weapon2 = get_node(\"boss_weapon2\")
+	var laser = get_node(\"Boss_laser\")
+	var saw = get_node(\"saw\")
+	
+	if channel.number == 1 and event.type == 144:
+		print(\"Note\", event.note)
+		
+		
+		if event.note == 42:
+			print(\"WHAT THE FUCKKKKKK????!!!?!?!?!!?\")
+			saw.get_node(\"sawAnimation\").play(\"RESET\")
+		
+		
+		if event.note == 45:
+			print(\"DDAAAAAAAAAAAAMMMMMMMNNNNN\")
+		
+			if saw_ready == 0:
+				saw.get_node(\"sawAnimation\").play(\"rotate\")
+				saw_ready += 1
+				print(\"saw\")
+				
+			elif saw_ready == 6:
+				saw_ready -= 6
+				print(\"notready\")
+				
+			else: 
+				saw_ready += 1 
+			print(\"notready\")
+			
+		if event.note == 46:
+			print(\"GOD DAMN LASER\")
+		
+		if event.note == 47:
+			print(\"BWOAH\")
+			var anim1 = laser.get_node(\"AnimationPlayer\")
+			var anim2 = laser.get_node(\"AnimationPlayer2\")
+			if boss_laser == 0:
+				anim1.play(\"laser\")
+				print(\"laser1\")
+				boss_laser += 1
+				
+			elif boss_laser == 1:
+				anim2.play(\"laser\")
+				print(\"laser2\")
+				boss_laser -= 1
+				
+		if event.note == 48:
+			print(\"BWUAAHHRRRGGGHH\")
+			laser.get_node(\"AnimationPlayer\").play(\"laser\")
+			
+		if event.note == 49:
+			print(\"tsar\") 
+		
+		if event.note == 50:
+			print(\"tak\")
+			var anim1 = weapon1.get_node(\"AnimationPlayer\")
+			var anim2 = weapon2.get_node(\"AnimationPlayer\")
+			
+			if weapon_attack == 0:
+				anim1.play(\"fire\")
+				
+				weapon_attack += 1
+				print(weapon_attack)
+				
+				
+			elif weapon_attack == 1:
+				anim2.play(\"fire\")
+
+				weapon_attack -= 1 
+				print(weapon_attack)
+
+				
+			
+		if event.note == 51: 
+			print(\"DOUBLE ATTACK\")
+		else: print()
+		
+		
+		
+"
+
+[sub_resource type="Animation" id="Animation_rfjv2"]
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.966667, 2),
+"transitions": PackedFloat32Array(2.46229, 1, 0.707107, 1),
+"update": 0,
+"values": [0.0, 0.0, 12.5664, 18.8496]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(-0.0333333, 0.933333, 2),
+"transitions": PackedFloat32Array(0.535887, 2.14355, 1),
+"update": 0,
+"values": [Vector2(7333.87, 10687), Vector2(-4476.83, 5349.48), Vector2(-16251.7, 9826.31)]
+}
+
+[sub_resource type="Animation" id="Animation_rku1e"]
+resource_name = "rotate"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(-0.466667, 0.666667, 1.26667, 1.96667),
+"transitions": PackedFloat32Array(3.03143, 0.933033, 0.196146, 1),
+"update": 0,
+"values": [0.0, 6.28319, 12.5664, 18.8496]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.733333, 1.96667),
+"transitions": PackedFloat32Array(0.153893, 1.7411, 1),
+"update": 0,
+"values": [Vector2(5421.2, 11655.3), Vector2(5421.2, 5029.04), Vector2(5421.2, 12097.6)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.96667),
+"transitions": PackedFloat32Array(1.31951, 1),
+"update": 0,
+"values": [Vector2(5421.2, 11655.3), Vector2(-13024, 12097.6)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1phco"]
+_data = {
+&"RESET": SubResource("Animation_rfjv2"),
+&"rotate": SubResource("Animation_rku1e")
+}
+
+[sub_resource type="Animation" id="Animation_i6g32"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_ldgsr"]
+resource_name = "laser"
+
+[sub_resource type="Animation" id="Animation_wowpa"]
+resource_name = "rotate"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1l0tm"]
+_data = {
+&"RESET": SubResource("Animation_i6g32"),
+&"laser": SubResource("Animation_ldgsr"),
+&"rotate": SubResource("Animation_wowpa")
+}
+
+[sub_resource type="Animation" id="Animation_vm72l"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(72.9653, -103.687)]
+}
+
+[sub_resource type="Animation" id="Animation_exi56"]
+resource_name = "idle"
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(72.9653, -103.687), Vector2(72.965, 50.687)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_22asu"]
+_data = {
+&"RESET": SubResource("Animation_vm72l"),
+&"idle": SubResource("Animation_exi56")
+}
+
+[sub_resource type="GDScript" id="GDScript_rku1e"]
+script/source = "extends Node2D
+"
+
+[sub_resource type="Animation" id="Animation_3dryh"]
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../saw:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../saw:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(11452.1, 9658.95)]
+}
+
+[sub_resource type="Animation" id="Animation_wrm1d"]
+resource_name = "rotate"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(-0.4995, 0, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [4.99164, 0.0, 6.28319]
+}
+
+[sub_resource type="Animation" id="Animation_1phco"]
+resource_name = "test"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../saw:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.7, 2),
+"transitions": PackedFloat32Array(1.7411, 0.258816, 1),
+"update": 0,
+"values": [0.0, 12.5664, 18.8496]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../saw:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.633333, 1.43333),
+"transitions": PackedFloat32Array(0.353553, 1.68179, 1),
+"update": 0,
+"values": [Vector2(11452.1, 9658.95), Vector2(11452.1, 4160.04), Vector2(11452.1, 9658.95)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wowpa"]
+_data = {
+&"RESET": SubResource("Animation_3dryh"),
+&"rotate": SubResource("Animation_wrm1d"),
+&"test": SubResource("Animation_1phco")
+}
+
+[sub_resource type="Animation" id="Animation_7nbq1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ewbju"]
+resource_name = "idle"
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 150)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_exi56"]
+_data = {
+&"RESET": SubResource("Animation_7nbq1"),
+&"idle": SubResource("Animation_ewbju")
+}
+
+[sub_resource type="Animation" id="Animation_mg4q0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.000244141, -3.84042)]
+}
+
+[sub_resource type="Animation" id="Animation_7t8sx"]
+resource_name = "idle"
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.000244141, -3.84042), Vector2(0, 143.84)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vm72l"]
+_data = {
+&"RESET": SubResource("Animation_mg4q0"),
+&"idle": SubResource("Animation_7t8sx")
+}
+
+[sub_resource type="Animation" id="Animation_nnt18"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1273.12, -2617.96)]
+}
+
+[sub_resource type="Animation" id="Animation_nb51f"]
+resource_name = "idle"
+length = 0.8
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-1273.12, -2617.96), Vector2(-1273.12, -2517.96)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ewbju"]
+_data = {
+&"RESET": SubResource("Animation_nnt18"),
+&"idle": SubResource("Animation_nb51f")
+}
+
+[sub_resource type="Animation" id="Animation_iivbl"]
+length = 0.8
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-1273.12, 2474.51), Vector2(-1273.12, 2574.51)]
+}
+
+[sub_resource type="Animation" id="Animation_85qyi"]
+resource_name = "idle"
+length = 0.8
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-1273.12, 2474.51), Vector2(-1273.12, 2574.51)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7nbq1"]
+_data = {
+&"RESET": SubResource("Animation_iivbl"),
+&"idle": SubResource("Animation_85qyi")
+}
+
+[node name="Boss_parent" type="Node2D"]
+scale = Vector2(0.167306, 0.167306)
+script = SubResource("GDScript_o5yvi")
+
+[node name="saw" parent="." instance=ExtResource("1_ijeur")]
+z_index = 4
+position = Vector2(11452.1, 9658.95)
+scale = Vector2(5.97707, 5.97707)
+
+[node name="sawAnimation" type="AnimationPlayer" parent="saw"]
+libraries = {
+&"": SubResource("AnimationLibrary_1phco")
+}
+
+[node name="shadow" parent="." instance=ExtResource("2_p513w")]
+z_index = 3
+position = Vector2(72.9653, -103.687)
+scale = Vector2(4.37886, 4.37886)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="shadow"]
+libraries = {
+&"": SubResource("AnimationLibrary_1l0tm")
+}
+script = ExtResource("3_7co4b")
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="shadow"]
+libraries = {
+&"": SubResource("AnimationLibrary_22asu")
+}
+autoplay = "idle"
+
+[node name="Boss" parent="." groups=["enemies"] instance=ExtResource("4_3rm0t")]
+z_index = 5
+scale = Vector2(6.23935, 6.23935)
+script = SubResource("GDScript_rku1e")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Boss"]
+libraries = {
+&"": SubResource("AnimationLibrary_wowpa")
+}
+script = ExtResource("3_7co4b")
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="Boss"]
+libraries = {
+&"": SubResource("AnimationLibrary_exi56")
+}
+autoplay = "idle"
+
+[node name="Boss_laser" parent="." instance=ExtResource("5_05ihx")]
+top_level = true
+z_index = 2
+position = Vector2(973, 280)
+
+[node name="ADSR" parent="." instance=ExtResource("6_ejeva")]
+
+[node name="eye" parent="." instance=ExtResource("7_kdgu5")]
+z_index = 5
+position = Vector2(0.000244141, -3.84042)
+scale = Vector2(1.38253, 1.38253)
+script = ExtResource("8_vwdh1")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="eye"]
+libraries = {
+&"": SubResource("AnimationLibrary_vm72l")
+}
+autoplay = "idle"
+
+[node name="MidiPlayer" parent="." instance=ExtResource("9_f6nfb")]
+file = "res://SoundTracks/Viltar Midi.mid"
+
+[node name="boss_weapon2" parent="." instance=ExtResource("10_fs8qs")]
+z_index = 5
+position = Vector2(-1273.12, -2617.96)
+scale = Vector2(1.12652, 1.12652)
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="boss_weapon2"]
+libraries = {
+&"": SubResource("AnimationLibrary_ewbju")
+}
+autoplay = "idle"
+
+[node name="boss_weapon" parent="." instance=ExtResource("10_fs8qs")]
+z_index = 5
+position = Vector2(-1273.12, 2474.51)
+scale = Vector2(1.09863, 1.09863)
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="boss_weapon"]
+libraries = {
+&"": SubResource("AnimationLibrary_7nbq1")
+}
+autoplay = "RESET"
+
+[connection signal="midi_event" from="MidiPlayer" to="." method="_on_midi_player_midi_event"]

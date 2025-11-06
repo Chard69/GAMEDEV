@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://bq8mwrnkds53o"]
+
+[ext_resource type="Texture2D" uid="uid://bjlndt8a73rne" path="res://Assets/Gear_Shadow.png" id="1_wjdoq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8pobm"]
+radius = 86.209
+
+[node name="Shadow" type="CharacterBody2D"]
+
+[node name="GearShadow" type="Sprite2D" parent="."]
+position = Vector2(115, 162)
+texture = ExtResource("1_wjdoq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_8pobm")

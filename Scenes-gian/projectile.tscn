@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://wq3ccxy2ukim"]
+
+[ext_resource type="Script" uid="uid://fs3utqfkapft" path="res://projectile.gd" id="1_yr2qt"]
+[ext_resource type="Texture2D" uid="uid://pkvoq4sif6vp" path="res://PngItem_72907.png" id="2_tl4hk"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_a85iw"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qxf0c"]
+
+[node name="projectile" type="CharacterBody2D"]
+scale = Vector2(0.167477, 0.167477)
+script = ExtResource("1_yr2qt")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-18.8445, 0.937514)
+rotation = 3.14159
+scale = Vector2(0.073718, 0.073718)
+texture = ExtResource("2_tl4hk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.506805, 1.43051e-05)
+shape = SubResource("CircleShape2D_a85iw")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-0.506805, 1.43051e-05)
+shape = SubResource("CircleShape2D_qxf0c")

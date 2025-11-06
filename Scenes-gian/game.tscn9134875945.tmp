@@ -1,0 +1,188 @@
+[gd_scene load_steps=20 format=3 uid="uid://70hnpxcqkw4j"]
+
+[ext_resource type="PackedScene" uid="uid://cxobs0x0nstml" path="res://Scenes/player.tscn" id="1_qxrlw"]
+[ext_resource type="PackedScene" uid="uid://skejq6hdkqjd" path="res://Scenes/boss.tscn" id="2_qxrlw"]
+[ext_resource type="Script" uid="uid://7oysg6nndknl" path="res://Scenes/animation_player.gd" id="3_wrm1d"]
+[ext_resource type="PackedScene" uid="uid://b6tab07q78b4n" path="res://Scenes/eye.tscn" id="4_3dryh"]
+[ext_resource type="PackedScene" uid="uid://bq8mwrnkds53o" path="res://Scenes/shadow.tscn" id="5_wowpa"]
+[ext_resource type="Script" uid="uid://dno2etjy0o6lq" path="res://Scenes/eye.gd" id="6_i6g32"]
+[ext_resource type="PackedScene" uid="uid://bdvkdv77fslji" path="res://addons/midi/ADSR.tscn" id="7_v158k"]
+[ext_resource type="PackedScene" uid="uid://cuyd1qv0pn26e" path="res://addons/midi/MidiPlayer.tscn" id="8_h4fw4"]
+[ext_resource type="PackedScene" uid="uid://ch2ns2ycmp6wp" path="res://Scenes/boss_weapon.tscn" id="10_ldgsr"]
+[ext_resource type="AudioStream" uid="uid://whew86rwhgom" path="res://SoundTracks/Viltar.ogg" id="10_o5yvi"]
+[ext_resource type="Script" uid="uid://d052mf2uqinvg" path="res://Scenes/boss_weapon.gd" id="11_o5yvi"]
+
+[sub_resource type="GDScript" id="GDScript_o5yvi"]
+script/source = "extends Node2D
+
+
+func _ready():	
+	pass
+	
+func _process(delta: float) -> void:
+	if Input.is_action_just_pressed(\"Boss_Attack\"):
+		print(\"kalbo\")
+
+func _on_midi_player_midi_event(channel: Variant, event: Variant) -> void:
+	
+	if channel.number == 1 and event.type == 144:
+		print(\"Note\", event.note)
+		
+		if event.note == 47:
+			print(\"BWOAH\")
+		
+		if event.note == 48:
+			print(\"BWUAAHHRRRGGGHH\")
+			
+		if event.note == 49:
+			print(\"tsar\")
+		
+		if event.note == 50:
+			print(\"tak\")
+		else: print()
+		
+"
+
+[sub_resource type="Animation" id="Animation_i6g32"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_wowpa"]
+resource_name = "rotate"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1l0tm"]
+_data = {
+&"RESET": SubResource("Animation_i6g32"),
+&"rotate": SubResource("Animation_wowpa")
+}
+
+[sub_resource type="GDScript" id="GDScript_rku1e"]
+script/source = "extends Node2D
+"
+
+[sub_resource type="Animation" id="Animation_3dryh"]
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+
+[sub_resource type="Animation" id="Animation_wrm1d"]
+resource_name = "rotate"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(-0.4995, 0, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [4.99164, 0.0, 6.28319]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wowpa"]
+_data = {
+&"RESET": SubResource("Animation_3dryh"),
+&"rotate": SubResource("Animation_wrm1d")
+}
+
+[node name="Game" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(231, 274)
+scale = Vector2(0.876114, 1.94009)
+zoom = Vector2(0.5, 0.5)
+position_smoothing_enabled = true
+position_smoothing_speed = 3.0
+
+[node name="player" parent="." groups=["player"] instance=ExtResource("1_qxrlw")]
+position = Vector2(96, 274)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="player"]
+position = Vector2(3, 2)
+stream = ExtResource("10_o5yvi")
+autoplay = true
+attenuation = 0.116629
+
+[node name="Boss_parent" type="Node2D" parent="."]
+position = Vector2(973, 280)
+scale = Vector2(0.167306, 0.167306)
+script = SubResource("GDScript_o5yvi")
+
+[node name="shadow" parent="Boss_parent" instance=ExtResource("5_wowpa")]
+position = Vector2(72.9653, -103.687)
+scale = Vector2(4.37886, 4.37886)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Boss_parent/shadow"]
+libraries = {
+&"": SubResource("AnimationLibrary_1l0tm")
+}
+script = ExtResource("3_wrm1d")
+
+[node name="Boss" parent="Boss_parent" groups=["enemies"] instance=ExtResource("2_qxrlw")]
+scale = Vector2(6.23935, 6.23935)
+script = SubResource("GDScript_rku1e")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Boss_parent/Boss"]
+libraries = {
+&"": SubResource("AnimationLibrary_wowpa")
+}
+script = ExtResource("3_wrm1d")
+
+[node name="ADSR" parent="Boss_parent" instance=ExtResource("7_v158k")]
+
+[node name="eye" parent="Boss_parent" instance=ExtResource("4_3dryh")]
+position = Vector2(0.000244141, -3.84042)
+scale = Vector2(1.38253, 1.38253)
+script = ExtResource("6_i6g32")
+
+[node name="MidiPlayer" parent="Boss_parent" instance=ExtResource("8_h4fw4")]
+file = "res://SoundTracks/Viltar Midi.mid"
+playing = true
+
+[node name="boss_weapon2" parent="Boss_parent" instance=ExtResource("10_ldgsr")]
+position = Vector2(-1583.92, -2952.67)
+scale = Vector2(1.12652, 1.12652)
+script = ExtResource("11_o5yvi")
+
+[node name="boss_weapon" parent="Boss_parent" instance=ExtResource("10_ldgsr")]
+position = Vector2(-1565.99, 2773.35)
+scale = Vector2(1.09863, 1.09863)
+script = ExtResource("11_o5yvi")
+
+[connection signal="midi_event" from="Boss_parent/MidiPlayer" to="Boss_parent" method="_on_midi_player_midi_event"]
