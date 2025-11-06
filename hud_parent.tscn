@@ -1,11 +1,11 @@
 [gd_scene load_steps=12 format=3 uid="uid://5sfp4sd1yirs"]
 
-[ext_resource type="PackedScene" uid="uid://661ud01dl8sf" path="res://Scenes/main_menu.tscn" id="1_x6ac7"]
-[ext_resource type="Script" uid="uid://chhgubbn6whs7" path="res://Scenes/main_menu.gd" id="2_3hqpj"]
+[ext_resource type="PackedScene" uid="uid://661ud01dl8sf" path="res://Scenes-gian/main_menu.tscn" id="1_x6ac7"]
+[ext_resource type="Script" uid="uid://chhgubbn6whs7" path="res://Scenes-gian/main_menu.gd" id="2_3hqpj"]
 [ext_resource type="Texture2D" uid="uid://df2mik6hy0d7g" path="res://Assets/HUD Skills/Vignette-PNG-Pic.png" id="3_t66qj"]
-[ext_resource type="Script" uid="uid://s8v22tcp0aom" path="res://Scenes/vignette_png_pic.gd" id="4_ptl3p"]
-[ext_resource type="PackedScene" uid="uid://db46hpxrj74ul" path="res://Scenes/hud.tscn" id="5_peti8"]
-[ext_resource type="Script" uid="uid://bc57qpi1qvhh4" path="res://Scenes/hud.gd" id="6_mrcum"]
+[ext_resource type="Script" uid="uid://s8v22tcp0aom" path="res://Scenes-gian/vignette_png_pic.gd" id="4_ptl3p"]
+[ext_resource type="PackedScene" uid="uid://db46hpxrj74ul" path="res://Scenes-gian/hud.tscn" id="5_peti8"]
+[ext_resource type="Script" uid="uid://bc57qpi1qvhh4" path="res://Scenes-gian/hud.gd" id="6_mrcum"]
 
 [sub_resource type="Animation" id="Animation_57efo"]
 length = 0.001
@@ -247,7 +247,7 @@ _data = {
 [node name="hud-parent" type="Node2D"]
 
 [node name="MainMenu" parent="." instance=ExtResource("1_x6ac7")]
-position = Vector2(0, -20)
+position = Vector2(1, -20)
 scale = Vector2(0.0979265, 0.0979265)
 script = ExtResource("2_3hqpj")
 
