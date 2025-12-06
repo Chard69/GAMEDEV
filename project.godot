@@ -12,7 +12,7 @@ config_version=5
 
 config/name="New Game"
 run/main_scene="uid://bversqf3q7ve0"
-config/features=PackedStringArray("4.4", "GL Compatibility")
+config/features=PackedStringArray("4.5", "GL Compatibility")
 
 [input]
 
